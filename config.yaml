@@ -1,0 +1,7 @@
+path: /Users/guill/Desktop/Universidad/2023-2024/Segundo_Semestre/VC/Practicas/Swiming_Pool_Detection
+train: DATABASE/training_data/images/yolov8/images/train
+val: DATABASE/training_data/images/yolov8/images/train
+
+#Classes
+names:
+  0: pool
