@@ -64,14 +64,14 @@ def clasification():
     # Crear el directorio de salida si no existe
     os.makedirs(output_dir, exist_ok=True)
     
-    print("Imágenes con piscinas:")
+    #print("Imágenes con piscinas:")
     for img_file, labels in images_with_pools.items():
-        print(img_file, ":", labels)
+        #print(img_file, ":", labels)
         
         # Escribir los datos de etiqueta en un archivo .txt en el directorio de salida
         write_label_file(img_file, labels, output_dir)
 
-    print("Imágenes sin piscinas:", images_without_pools)
+    #print("Imágenes sin piscinas:", images_without_pools)
     return images_with_pools, images_without_pools
 
 
