@@ -6,10 +6,17 @@ import matplotlib.pyplot as plt
 
 def load_images_from_files(file_list, directory):
     images = []
+    valid_image_extensions = ['.jpg', '.jpeg', '.png', '.bmp']  # Lista de extensiones válidas para imágenes
+
     for file in file_list:
-        path = os.path.join(directory, file)
-        image = io.imread(path)
-        images.append(image)
+        file_path = os.path.join(directory, file)
+        
+        # Verificar si el archivo es una imagen válida por su extensión
+        if any(file_path.lower().endswith(ext) for ext in valid_image_extensions):
+            image = io.imread(file_path)
+            images.append(image)
+
+
     return images
 
 def filter_contours_by_area(contours, min_area):
