@@ -1,7 +1,7 @@
 path: /Users/guill/Desktop/Universidad/2023-2024/Segundo_Semestre/VC/Practicas/Swiming_Pool_Detection
 train: DATABASE/ultralytics/images/train
 val: DATABASE/ultralytics/images/val
-#test: DATABASE/ultralytics/images/test
+test: DATABASE/ultralytics/images/test
 
 #Classes
 names:
