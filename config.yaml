@@ -1,8 +1,8 @@
 path: /Users/guill/Desktop/Universidad/2023-2024/Segundo_Semestre/VC/Practicas/Swiming_Pool_Detection
-# train: DATABASE/ultralytics/images/train
-# val: DATABASE/ultralytics/images/val
-train: DATABASE/ultralytics_modif/images/train
-val: DATABASE/ultralytics_modif/images/val
+train: DATABASE/ultralytics/images/train
+val: DATABASE/ultralytics/images/val
+# train: DATABASE/ultralytics_modif/images/train
+# val: DATABASE/ultralytics_modif/images/val
 
 
 #Classes
