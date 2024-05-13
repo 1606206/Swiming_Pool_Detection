@@ -1,44 +1,52 @@
 import os
+import random
+import shutil
 
-def convertir_formato_inplace(input_folder):
-    # Obtener la lista de archivos .txt en el carpeta de entrada
-    txt_files = [f for f in os.listdir(input_folder) if f.endswith('.txt')]
-    
-    # Iterar sobre cada archivo .txt
-    for txt_file in txt_files:
-        file_path = os.path.join(input_folder, txt_file)
-        
-        # Leer el contenido del archivo original
-        with open(file_path, 'r') as f:
-            lines = f.readlines()
-        
-        # Abrir el mismo archivo para escribir (sobrescribir el contenido)
-        with open(file_path, 'w') as f:
-            for line in lines:
-                # Dividir la línea en partes usando espacio como separador
-                parts = line.strip().split()
-                
-                if len(parts) == 5:  # Asegurarse de que la línea tiene 5 partes
-                    clase = parts[0]
-                    xmin = float(parts[1])
-                    ymin = float(parts[2])
-                    xmax = float(parts[3])
-                    ymax = float(parts[4])
-                    
-                    # Calcular el centro (x_center, y_center) y el tamaño (width, height)
-                    x_center = (xmin + xmax) / 2.0
-                    y_center = (ymin + ymax) / 2.0
-                    width = xmax - xmin
-                    height = ymax - ymin
-                    
-                    # Construir la línea en el nuevo formato
-                    new_line = f"{clase} {x_center} {y_center} {width} {height}\n"
-                    
-                    # Escribir la línea en el archivo (sobrescribir el contenido)
-                    f.write(new_line)
+# Directorios de entrada y salida
+input_folder = "./DATABASE/ultralytics/todas"
 
-# Directorio de entrada (misma carpeta que contiene los archivos .txt)
-input_directory = "DATABASE/ultralytics_modif/labels/val"
+TRAIN_img = "./DATABASE/ultralytics/images/train"
+VAL_img = "./DATABASE/ultralytics/images/val"
+TEST_img = "./DATABASE/ultralytics/images/test"
 
-# Llamar a la función para convertir el formato de los archivos .txt inplace
-convertir_formato_inplace(input_directory)
+TRAIN_labels = "./DATABASE/ultralytics/labels/train"
+VAL_labels = "./DATABASE/ultralytics/labels/val"
+TEST_labels = "./DATABASE/ultralytics/labels/test"
+
+# Crear directorios de salida si no existen
+for directory in [TRAIN_img, VAL_img, TEST_img, TRAIN_labels, VAL_labels, TEST_labels]:
+    os.makedirs(directory, exist_ok=True)
+
+# Obtener lista de archivos en el directorio de entrada
+files = [f for f in os.listdir(input_folder) if os.path.isfile(os.path.join(input_folder, f))]
+
+# Determinar el tamaño de cada conjunto (train, val, test)
+total_files = len(files)
+train_size = int(0.7 * total_files)
+val_size = int(0.15 * total_files)
+test_size = total_files - train_size - val_size
+
+# Escoger aleatoriamente los archivos para cada conjunto
+random.shuffle(files)
+train_files = files[:train_size]
+val_files = files[train_size:train_size+val_size]
+test_files = files[train_size+val_size:]
+
+# Función para copiar archivos
+def copy_files(file_list, source_dir, dest_img_dir, dest_label_dir):
+    for filename in file_list:
+        if filename.endswith('.jpg'):
+            # Es un archivo de imagen (.png), copiar a directorio de imágenes
+            shutil.copy(os.path.join(source_dir, filename), os.path.join(dest_img_dir, filename))
+        elif filename.endswith('.txt'):
+            # Es un archivo de etiqueta (.txt), copiar a directorio de etiquetas
+            shutil.copy(os.path.join(source_dir, filename), os.path.join(dest_label_dir, filename))
+        else:
+            print(f"Advertencia: Archivo {filename} no reconocido.")
+
+# Copiar archivos al directorio de salida según los conjuntos
+copy_files(train_files, input_folder, TRAIN_img, TRAIN_labels)
+copy_files(val_files, input_folder, VAL_img, VAL_labels)
+copy_files(test_files, input_folder, TEST_img, TEST_labels)
+
+print("Archivos copiados exitosamente en los directorios de train, val y test.")
