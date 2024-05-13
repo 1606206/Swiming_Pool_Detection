@@ -10,7 +10,7 @@ def load_ultralytics_dicc(epochs, modif = False):
         else:
             output_dir_epoch = Path('DATABASE/ultralytics/images/10epoch_accuracy')
 
-    elif (epochs == 100 and modif):
+    elif (epochs == 100):
         if (modif == True):
             output_dir_epoch = Path('DATABASE/ultralytics_modif/images/100epoch_accuracy')
         else:
