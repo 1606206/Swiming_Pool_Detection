@@ -64,9 +64,13 @@ def visualize_results(images):
 
     return pool_boxes
 
-def hsvMask():
+def hsvMask(preprocesado):
 
-    train_dir = "./DATABASE/training_data/images/"
+    if preprocesado == 0:
+        train_dir = "./DATABASE/training_data/images/"
+    elif preprocesado == 1:
+        train_dir = "./DATABASE/training_data_modif/"
+        
     train_imgs = load_images_from_files(train_dir)
     hsv_and_mask_labels = visualize_results(train_imgs)
 
