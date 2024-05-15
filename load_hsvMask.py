@@ -74,8 +74,6 @@ def hsvMask(preprocesado):
     train_imgs = load_images_from_files(train_dir)
     hsv_and_mask_labels = visualize_results(train_imgs)
 
-    for file, boxes in hsv_and_mask_labels.items():
-        print(f"{file}: {boxes}")
     return hsv_and_mask_labels
 
 

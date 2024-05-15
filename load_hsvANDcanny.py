@@ -82,8 +82,8 @@ def hsvCanny(preprocesado):
 
     pool_data_all_images = visualize_results(train_imgs, train_files)
     # Imprimir los datos de las bounding boxes
-    for image_name, pool_data in pool_data_all_images.items():
-        print(f"{image_name}: {pool_data}")
+    # for image_name, pool_data in pool_data_all_images.items():
+    #     print(f"{image_name}: {pool_data}")
     return pool_data_all_images
 
 
