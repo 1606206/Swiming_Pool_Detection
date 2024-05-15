@@ -35,6 +35,7 @@ def segment_yellow_hsv(img):
     return result
 
 # Función para dibujar los cuadrados delimitadores alrededor de las piscinas, eliminando las piscinas muy pequeñas
+
 def draw_detected_pools(image, rectangles, min_area=500):
     filtered_rectangles = [rect for rect in rectangles if rect[2] * rect[3] > min_area]
     bounding_boxes = []
@@ -63,6 +64,48 @@ def visualize_results(images):
         pool_boxes[file] = bounding_boxes
 
     return pool_boxes
+
+"""
+def draw_detected_pools(image, rectangles, min_area=500):
+    bounding_boxes = []
+    for i, (x, y, w, h) in enumerate(rectangles, 1):
+        # Comprobar si la bounding box contiene áreas amarillas claras
+        hsv_img = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        mask = cv2.inRange(hsv_img, (15, 100, 100), (40, 255, 255))  # Umbral para áreas amarillas claras
+        if np.any(mask[y:y+h, x:x+w] == 255):
+            xmax = x + w
+            ymax = y + h
+            bounding_boxes.append((x, y, xmax, ymax))
+            cv2.rectangle(image, (x, y), (xmax, ymax), (0, 255, 0), 2)
+            cv2.putText(image, str(i), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+        else:
+            if w * h > min_area:
+                xmax = x + w
+                ymax = y + h
+                bounding_boxes.append((x, y, xmax, ymax))
+                cv2.rectangle(image, (x, y), (xmax, ymax), (0, 255, 0), 2)
+                cv2.putText(image, str(i), (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
+    return image, bounding_boxes
+
+def visualize_results(images):
+    pool_boxes = {}  # Diccionario para almacenar las bounding boxes de las piscinas detectadas en cada imagen
+    file_list = [file for file, _ in images]
+    for file, img in images:
+        # Segmentación de áreas amarillas en el espacio de color HSV
+        yellow_segmented_img_hsv = segment_yellow_hsv(img)
+
+        # Obtener los contornos de las piscinas en la imagen segmentada
+        contours, _ = cv2.findContours(cv2.cvtColor(yellow_segmented_img_hsv, cv2.COLOR_BGR2GRAY), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        rectangles = [cv2.boundingRect(contour) for contour in contours]
+
+        # Dibujar los cuadrados verdes alrededor de las piscinas
+        image_with_boxes, all_boxes = draw_detected_pools(yellow_segmented_img_hsv.copy(), rectangles)
+
+        # Actualizar el diccionario de bounding boxes de piscinas
+        pool_boxes[file] = all_boxes
+
+    return pool_boxes
+"""
 
 def hsvMask(preprocesado):
 
