@@ -1,4 +1,4 @@
-import NDVI
+import NDVI2
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
@@ -27,7 +27,7 @@ def save_image(image_data, output_dir):
 
 
 # Directory containing the images
-directory = 'DATABASE/training_data/training_data/images/'
+directory = 'DATABASE/test_data_images'
 
 # Find all files ending with '.jpg' in the directory
 image_files = sorted(glob.glob(os.path.join(directory, '*.jpg')))
@@ -36,6 +36,6 @@ image_files = sorted(glob.glob(os.path.join(directory, '*.jpg')))
 for filename in image_files:
     image = cv2.imread(filename)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    image = NDVI.preprocess_image(image)
-    save_image(image, 'DATABASE/training_data_modif')
+    image = NDVI2.preprocess_image(image)
+    save_image(image, 'DATABASE/test_data_images_modif_bis')
 
