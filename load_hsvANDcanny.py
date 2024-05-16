@@ -2,7 +2,6 @@ import os
 import skimage.io as io
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
 
 def load_images_from_files(file_list, directory):
     images = []
@@ -15,7 +14,6 @@ def load_images_from_files(file_list, directory):
         if any(file_path.lower().endswith(ext) for ext in valid_image_extensions):
             image = io.imread(file_path)
             images.append(image)
-
 
     return images
 
@@ -55,19 +53,6 @@ def visualize_results(images, file_names):
         img_with_boxes, pool_data = draw_detected_pools(img.copy(), contours)
         pool_data_all_images[file_name] = pool_data
         
-        #plt.figure(figsize=(12, 6))
-        #plt.subplot(1, 2, 1)
-        #plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-        #plt.title(file_name)
-        #plt.axis('off')
-
-        #plt.subplot(1, 2, 2)
-        #plt.imshow(cv2.cvtColor(img_with_boxes, cv2.COLOR_BGR2RGB))
-        #plt.title("Yellow area segmentation with edge detection (filtered by area)")
-        #plt.axis('off')
-
-        #plt.show()
-        
     return pool_data_all_images
 
 
@@ -81,9 +66,7 @@ def hsvCanny(preprocesado):
     train_imgs = load_images_from_files(train_files, train_dir)
 
     pool_data_all_images = visualize_results(train_imgs, train_files)
-    # Imprimir los datos de las bounding boxes
-    # for image_name, pool_data in pool_data_all_images.items():
-    #     print(f"{image_name}: {pool_data}")
+
     return pool_data_all_images
 
 

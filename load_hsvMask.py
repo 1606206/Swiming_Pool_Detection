@@ -113,6 +113,8 @@ def hsvMask(preprocesado):
         train_dir = "./DATABASE/training_data/images/"
     elif preprocesado == 1:
         train_dir = "./DATABASE/training_data_modif/"
+    elif preprocesado == 2:
+        train_dir = "./DATABASE/training_data_modif_bis/"
         
     train_imgs = load_images_from_files(train_dir)
     hsv_and_mask_labels = visualize_results(train_imgs)
