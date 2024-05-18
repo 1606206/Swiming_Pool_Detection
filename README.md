@@ -49,6 +49,9 @@ Cuando hablamos de imagenes **modificadas**, es que hemos usado las iamgenes pro
 
 **Verificar_DATASET.ipynb** --> Archivo que se encarga desde un inicio de clasificar todos los labels xml en txt, asignar carpetas donde hay piscinas y donde no las hay, modificar la estructura de los archivos... Trabajar con la BBDD proporcionada para facilitarnos su uso
 
+**Detect_video.ipynb** --> Archivo para predecir frames de un video y hacer el output con el nombre *test_video_out.mp4*
+**make_video.ipynb** --> Convierte 300 imagenes del directorio test_data_images en un video para poder predecir sobre el
+
 # Estructura Carpetas
 
 **Carpeta runs** --> En la carpeta runs enconctramos todos los resultados de cada entrenamiento, los archivos finalizados con *Detect* son los aplicados a imagenes de test sin labels, los finalizados en *Accuracy* los que si que hemos podido ver el accuracy
