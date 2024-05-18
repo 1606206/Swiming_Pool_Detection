@@ -2,10 +2,10 @@ from ultralytics import YOLO
 from pathlib import Path
 
 def load_ultralytics_dicc(epochs, modif = False):
-    if (modif == True):
-        input_dir = Path('DATABASE/ultralytics_modif/images/test')
-    else:
-        input_dir = Path('DATABASE/ultralytics/images/test')
+    # if (modif == True):
+    #     input_dir = Path('DATABASE/ultralytics_modif/images/test')
+    # else:
+    input_dir = Path('DATABASE/ultralytics/images/test')
     # Rutas de directorios
     if (epochs == 10):
         if (modif == True):
